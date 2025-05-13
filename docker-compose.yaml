@@ -1,5 +1,5 @@
 services:
-  glpi-app:
+  glpiapp:
     container_name: "glpi"
     build:
       context: ".docker/app"
@@ -13,16 +13,18 @@ services:
       - "9637:9637"
     extra_hosts:
       - "host.docker.internal:host-gateway"
-    network:
+    networks:
       - glpi-network
-  db-glpi:
-    container_name: dbMysql
+    depends_on:
+      - dbglpi
+  dbglpi:
+    container_name: "dbglpi"
     image: mysql:latest
     environment:
-      - MYSQL_ROOT_PASSWORD: root
+      - MYSQL_ROOT_PASSWORD=root
     ports:
       - 3307:3306
-    network:
+    networks:
       - glpi-network
     volumes:
       - "./db:/var/lib/mysql"
