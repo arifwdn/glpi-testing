@@ -26,6 +26,7 @@ services:
       - glpi-network
     volumes:
       - "./db:/var/lib/mysql"
-  networks:
-    glpi-network:
-      driver: bridge
+
+networks:
+  glpi-network:
+    driver: bridge
